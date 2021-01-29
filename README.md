@@ -2,7 +2,7 @@
 
 > 需求: 移动端绘制PDF页面, 获取数据进行填充, 然后通过隔空打印打印出来，以下内容只根据我所做具体内容进行讲解，如有不对，还请不吝指教
 
-#一、基础步骤
+# 一、基础步骤
 * 指定PDF文件保存路径
 * 创建以指定路径为目标的PDF文件，开启PDF图形上下文
 * 开启绘制，绘制内容
@@ -44,7 +44,7 @@ NSURL *url = [NSURL fileURLWithPath:pathPDF];
 
 ![效果图](https://upload-images.jianshu.io/upload_images/12618366-17285412b4f16927.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#二、绘制内容
+# 二、绘制内容
 主要是文字，下划线，外边框的绘制
 
 * 导入第三方字体
@@ -219,7 +219,7 @@ UIFont *font = [UIFont fontWithName:@"STSong" size:FONT];
 ```
 > 之后的具体代码就是不断的绘制文字，下滑线的过程，具体可以看下面的Demo
 
-#三、隔空打印
+# 三、隔空打印
 * 安装打印机模拟器
 当然也可以用真的打印机，为了方便开发，可以安装一个[打印机模拟器](https://developer.apple.com/download/more/?name=for%20Xcode)，拉下去找一下，Hardware那个，点开点右边下载即可
 ![](https://upload-images.jianshu.io/upload_images/12618366-ea491b17107f3073.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
