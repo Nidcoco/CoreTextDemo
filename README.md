@@ -237,6 +237,7 @@ an instance of any of the built-in print formatter classes: 打印格式化者�
 a custom page renderer： 自定义页渲染者。
 ```
 简单的说就是可以打印web页面，PDF，图片等等
+
 2. UIPrintInteractionController 的属性、方法
 ```
 @property(nullable, nonatomic, strong) UIPrintInfo *printInfo;      // 打印任务的信息，其中包括输出类型, 打印方向, 打印文件名称等等
@@ -281,6 +282,7 @@ a custom page renderer： 自定义页渲染者。
 4. 默认弹窗界面
 ![iPad](https://upload-images.jianshu.io/upload_images/12618366-347b860c95bfd376.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![iPhone](https://upload-images.jianshu.io/upload_images/12618366-150a84a208f2a3d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 Select Printer选择打印机里面有好几个都是模拟器生成的
 ![](https://upload-images.jianshu.io/upload_images/12618366-80f6d81433ef717e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -315,6 +317,7 @@ Select Printer选择打印机里面有好几个都是模拟器生成的
 
 [Demo地址](https://github.com/li199508/CoreTextDemo.git "Title")
 > 参考: 
+
 https://www.jianshu.com/p/7cff5d89f3ac
 https://www.jianshu.com/p/95168c23fb39
 https://github.com/billzbh/PNCPDFTable
