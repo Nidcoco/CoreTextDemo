@@ -26,36 +26,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kNavStatusBarHeight, kScreenWidth, kScreenHeight - kNavStatusBarHeight)];
 
-    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    self.pathPDF =  [documentPath stringByAppendingPathComponent:@"绘制.pdf"];
-    
-    UIGraphicsBeginPDFContextToFile(self.pathPDF, CGRectZero, NULL);
-    
-    NSLog(@"pathPDF  =%@",self.pathPDF);
-    
-    UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, 1240, 1754), nil);
-//    UIGraphicsBeginPDFPage();
-    [[[LVRoadCasePrint alloc] init] drawInquestRecordAction:nil];
-    UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, 1240, 1754), nil);
-    [[[LVRoadCasePrint alloc] init] drawSiteRecordAction:nil];
-    
-    
-    UIGraphicsEndPDFContext();
-    
-    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, kNavStatusBarHeight, kScreenWidth, kScreenHeight - kNavStatusBarHeight)];
     self.webView.scalesPageToFit = YES;
-    
+
     [self.view addSubview:self.webView];
-    
-    NSURL *url = [NSURL fileURLWithPath:self.pathPDF];
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-    
+
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(selectRightAction:)];
+
     self.navigationItem.rightBarButtonItem = rightBarItem;
 
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+
+        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+        self.pathPDF =  [documentPath stringByAppendingPathComponent:@"绘制.pdf"];
+
+        UIGraphicsBeginPDFContextToFile(self.pathPDF, CGRectZero, NULL);
+
+        NSLog(@"pathPDF  =%@",self.pathPDF);
+
+        UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, 1240, 1754), nil);
+
+    //    UIGraphicsBeginPDFPage();
+
+        [[[LVRoadCasePrint alloc] init] drawInquestRecordAction:nil];
+
+        UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, 1240, 1754), nil);
+
+        [[[LVRoadCasePrint alloc] init] drawSiteRecordAction:nil];
+
+
+        UIGraphicsEndPDFContext();
+
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            NSURL *url = [NSURL fileURLWithPath:self.pathPDF];
+
+            [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+
+        });
+
+    });
     
 }
 
