@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A36C32826AAC8A800249E65 /* 模板.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0A36C32726AAC8A800249E65 /* 模板.pdf */; };
 		0A54F09E25C3DC1C00658EB1 /* Songti.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 0A54F09D25C3DC1C00658EB1 /* Songti.ttc */; };
 		0A7AC7FB25A457960035A45E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AC7FA25A457960035A45E /* AppDelegate.m */; };
 		0A7AC7FE25A457960035A45E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AC7FD25A457960035A45E /* SceneDelegate.m */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A36C32726AAC8A800249E65 /* 模板.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "模板.pdf"; sourceTree = "<group>"; };
 		0A54F09D25C3DC1C00658EB1 /* Songti.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Songti.ttc; sourceTree = "<group>"; };
 		0A7AC7F625A457960035A45E /* CoreTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A7AC7F925A457960035A45E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				0A9E026725A8062D00BE2106 /* LVPDFDrawManager.m */,
 				0A9E026A25A8410000BE2106 /* LVRoadCasePrint.h */,
 				0A9E026B25A8410000BE2106 /* LVRoadCasePrint.m */,
+				0A36C32726AAC8A800249E65 /* 模板.pdf */,
 				0A54F09D25C3DC1C00658EB1 /* Songti.ttc */,
 			);
 			path = CoreTextDemo;
@@ -145,6 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A36C32826AAC8A800249E65 /* 模板.pdf in Resources */,
 				0A7AC80925A457990035A45E /* LaunchScreen.storyboard in Resources */,
 				0A7AC80625A457990035A45E /* Assets.xcassets in Resources */,
 				0A7AC80425A457960035A45E /* Main.storyboard in Resources */,
