@@ -2,10 +2,13 @@
 
 > 需求: 移动端绘制PDF页面, 获取数据进行填充, 然后通过隔空打印打印出来，以下内容只根据我所做具体内容进行讲解，如有不对，还请不吝指教
 
-#一、创建PDF文件
+# 一、创建PDF文件
 创建PDF文件有两种方式, 一种是用UIKit的UIGraphics类里面的方法,第二种是用CoreGraphics,  是基于Quartz 2D的一个高级绘图引擎，。Core Graphics是对底层C语言的一个简单封装，而UIGraphics是对CoreGraphics的部分功能的进一层封装, 所以UIGraphics更加`苹果点`, 使用方便, 而CoreGraphics更底层, 更强大
-##UIGraphics创建PDF
-###1. 用UIGraphicsBeginPDFContextToFile方法创建
+
+## UIGraphics创建PDF
+
+### 1. 用UIGraphicsBeginPDFContextToFile方法创建
+
 ```
 // 指定PDF文件保存路径
 NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -25,7 +28,8 @@ UIGraphicsEndPDFContext();
 ```
 
 
-###2. 用UIGraphicsBeginPDFContextToData方法创建
+### 2. 用UIGraphicsBeginPDFContextToData方法创建
+
 ```
 NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 NSString *pathPDF =  [documentPath stringByAppendingPathComponent:@"绘制.pdf"];
@@ -44,9 +48,13 @@ UIGraphicsEndPDFContext();
 ```
 两种方法创建PDF, 并在PDF上面绘制文本内容, 如果没有指定创建方法(`UIGraphicsBeginPDFPageWithInfo`或`UIGraphicsBeginPDFContextToData`)和开始页面的方法`UIGraphicsBeginPDFPageWithInfo`指定PDF页面的大小, 默认的大小是`CGSizeMake(612, 792)`. 其次, 调用一次`UIGraphicsBeginPDFPage`或`UIGraphicsBeginPDFPageWithInfo`就会开始新的一页.
 经过我数次的试验, 如果要对原有的PDF进行再次绘制用UIGraphics是不行的, 假如第一种创建PDF代码的那个pathPDF路径下已有一个有内容的`绘制.pdf`, 但是当我调用UIGraphicsBeginPDFContextToFile方法的时候,这个PDF会被清空, 而第二种创建方法的data, 我传的是一个已有内容的PDF的data数据进去, 那个PDF的内容是可以读取到新的PDF上, 但是无法对其进行绘制, 具体我猜测是当前的上下文和那个PDF的上下文不一样, 应该要先push到那个PDF的上下文, 在进行绘制, 但是那个PDF的上下文我好像无法获取. 所以, 如果是对已有的PDF进行绘制只能用CoreGraphics.
-##CoreGraphics
-###1. 创建PDF
-* ####通过url创建PDF文件
+
+## CoreGraphics
+
+### 1. 创建PDF
+
+* #### 通过url创建PDF文件
+
 ```
     NSString *docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 
@@ -100,7 +108,7 @@ UIGraphicsEndPDFContext();
 
 最后说下为什么绘制内容要平移后再翻转, `UIKit`的坐标原点是在屏幕左上角, y轴是向下递增, x轴是像右递增, 而`CoreGraphics`的坐标原点是在左下角的, 因为绘制的内容frame是`UIKit`的坐标系, 所以要将`CoreGraphics`转成`UIKit`的坐标系, 所以是向上移动再沿翻转, 如果不进行这个操作绘制出来的PDF会变成下面这样
 ![](https://upload-images.jianshu.io/upload_images/12618366-10d639196bf5ff2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-* ####通过data写入的方式创建PDF文件
+* #### 通过data写入的方式创建PDF文件
 ```
     NSMutableData *pdfData = [[NSMutableData alloc] init];
     CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
@@ -133,7 +141,9 @@ UIGraphicsEndPDFContext();
     [pdfData writeToFile:pathPDF atomically:YES];
 ```
 这个和第一种创建PDF不同在创建PDF上下文的方式不同, 而且最后要自己写入文件
-###2. 绘制原有PDF文件
+
+### 2. 绘制原有PDF文件
+
 ```
     NSString *docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 
@@ -267,7 +277,7 @@ CGPDFDocumentRelease(pdfRef2);
 CGContextRelease(writeContext);
 ```
 
-#二、绘制内容
+# 二、绘制内容
 主要是文字，下划线，外边框的绘制
 
 * 导入第三方字体
@@ -520,7 +530,7 @@ UIFont *font = [UIFont fontWithName:@"STSong" size:FONT];
 }
 ```
 > 之后的具体代码就是不断的绘制文字，下滑线的过程，具体可以看下面的Demo
-#三、展示
+# 三、展示
 ```
 
 /*
@@ -541,7 +551,9 @@ NSURL *url = [NSURL fileURLWithPath:pathPDF];
 ```
 
 ![效果图](https://upload-images.jianshu.io/upload_images/12618366-17285412b4f16927.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-#四、隔空打印
+
+# 四、隔空打印
+
 * 安装打印机模拟器
 当然也可以用真的打印机，为了方便开发，可以安装一个[打印机模拟器](https://developer.apple.com/download/more/?name=for%20Xcode)，拉下去找一下，Hardware那个，点开点右边下载即可
 ![](https://upload-images.jianshu.io/upload_images/12618366-ea491b17107f3073.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -638,7 +650,10 @@ Select Printer选择打印机里面有好几个都是模拟器生成的
 [Demo地址](https://github.com/li199508/CoreTextDemo.git "Title")
 > 参考: 
 https://www.jianshu.com/p/7cff5d89f3ac
+
 https://www.jianshu.com/p/95168c23fb39
+
 https://github.com/billzbh/PNCPDFTable
+
 https://www.coder.work/article/467182
 
